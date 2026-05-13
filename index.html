@@ -12,83 +12,9 @@
     <section class="link-card" aria-label="Codex DJ links">
       <div class="hero">
         <div class="wordmark" aria-label="Codex">
-          <svg class="codex-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 230" role="img" aria-label="Codex" fill="currentColor">
-  <style>
-    .codex-logo .ltr {
-      transform-box: fill-box;
-      transform-origin: center;
-      opacity: 0;
-      animation: ltr-in 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
-    }
-    .ltr:nth-child(1){animation-delay:0.05s}
-    .ltr:nth-child(2){animation-delay:0.17s}
-    .ltr:nth-child(3){animation-delay:0.29s}
-    .ltr:nth-child(4){animation-delay:0.41s}
-    .ltr:nth-child(5){animation-delay:0.53s}
-    @keyframes ltr-in{
-      from{opacity:0;transform:scaleX(0.82) scaleY(0.9)}
-      to  {opacity:1;transform:none}
-    }
-    .codex-logo #logo-base{
-      animation: logo-glow 4s ease-in-out 1.8s infinite;
-    }
-    @keyframes logo-glow{
-      0%,100%{filter:drop-shadow(0 0 2px rgba(255,255,255,.2))}
-      50%    {filter:drop-shadow(0 0 14px rgba(255,255,255,.55)) drop-shadow(0 0 28px rgba(255,255,255,.2))}
-    }
-    .codex-logo #gr{fill:rgb(255,55,55);opacity:0;animation:g-r 9s steps(1) 3s infinite}
-    .codex-logo #gb{fill:rgb(55,210,255);opacity:0;animation:g-b 9s steps(1) 3s infinite}
-    @keyframes g-r{
-      0%,86%,100%{opacity:0;clip-path:inset(0 0 100% 0);transform:none}
-      87%{opacity:.7;clip-path:inset(12% 0 52% 0);transform:translateX(-5px)}
-      88%{opacity:.7;clip-path:inset(55% 0 12% 0);transform:translateX(5px)}
-      89%{opacity:0;clip-path:inset(0 0 100% 0);transform:none}
-    }
-    @keyframes g-b{
-      0%,86%,100%{opacity:0;clip-path:inset(0 0 100% 0);transform:none}
-      87%{opacity:.65;clip-path:inset(50% 0 12% 0);transform:translateX(5px)}
-      88%{opacity:.65;clip-path:inset(15% 0 45% 0);transform:translateX(-5px)}
-      89%{opacity:0;clip-path:inset(0 0 100% 0);transform:none}
-    }
-  </style>
-
-  <!-- ── base white letters ───────────────────────────────── -->
-  <g id="logo-base">
-    <!-- C -->
-    <path class="ltr" d="M218,22 L48,22 Q22,22 22,48 L22,182 Q22,208 48,208 L218,208 L218,158 L85,158 Q72,158 72,145 L72,87 Q72,72 85,72 L218,72 Z"/>
-    <!-- O -->
-    <path class="ltr" fill-rule="evenodd" d="M428,22 Q454,22 454,48 L454,182 Q454,208 428,208 L284,208 Q258,208 258,182 L258,48 Q258,22 284,22 Z M390,72 Q404,72 404,86 L404,144 Q404,158 390,158 L322,158 Q308,158 308,144 L308,86 Q308,72 322,72 Z"/>
-    <!-- D -->
-    <path class="ltr" fill-rule="evenodd" d="M664,22 Q690,22 690,48 L690,182 Q690,208 664,208 L520,208 Q494,208 494,182 L494,48 Q494,22 520,22 Z M626,72 Q640,72 640,86 L640,144 Q640,158 626,158 L558,158 Q544,158 544,144 L544,86 Q544,72 558,72 Z"/>
-    <!-- E -->
-    <path class="ltr" fill-rule="evenodd" d="M900,22 Q926,22 926,48 L926,182 Q926,208 900,208 L756,208 Q730,208 730,182 L730,48 Q730,22 756,22 Z M780,72 L926,72 L926,90 L780,90 Z M780,140 L926,140 L926,158 L780,158 Z"/>
-    <!-- X -->
-    <g class="ltr">
-      <polygon points="966,22 1082,96 1162,208 1046,134"/>
-      <polygon points="1162,22 1046,96 966,208 1082,134"/>
-    </g>
-  </g>
-
-  <!-- ── glitch red ────────────────────────────────────────── -->
-  <g id="gr" aria-hidden="true">
-    <path d="M218,22 L48,22 Q22,22 22,48 L22,182 Q22,208 48,208 L218,208 L218,158 L85,158 Q72,158 72,145 L72,87 Q72,72 85,72 L218,72 Z"/>
-    <path fill-rule="evenodd" d="M428,22 Q454,22 454,48 L454,182 Q454,208 428,208 L284,208 Q258,208 258,182 L258,48 Q258,22 284,22 Z M390,72 Q404,72 404,86 L404,144 Q404,158 390,158 L322,158 Q308,158 308,144 L308,86 Q308,72 322,72 Z"/>
-    <path fill-rule="evenodd" d="M664,22 Q690,22 690,48 L690,182 Q690,208 664,208 L520,208 Q494,208 494,182 L494,48 Q494,22 520,22 Z M626,72 Q640,72 640,86 L640,144 Q640,158 626,158 L558,158 Q544,158 544,144 L544,86 Q544,72 558,72 Z"/>
-    <path fill-rule="evenodd" d="M900,22 Q926,22 926,48 L926,182 Q926,208 900,208 L756,208 Q730,208 730,182 L730,48 Q730,22 756,22 Z M780,72 L926,72 L926,90 L780,90 Z M780,140 L926,140 L926,158 L780,158 Z"/>
-    <polygon points="966,22 1082,96 1162,208 1046,134"/>
-    <polygon points="1162,22 1046,96 966,208 1082,134"/>
-  </g>
-
-  <!-- ── glitch blue ───────────────────────────────────────── -->
-  <g id="gb" aria-hidden="true">
-    <path d="M218,22 L48,22 Q22,22 22,48 L22,182 Q22,208 48,208 L218,208 L218,158 L85,158 Q72,158 72,145 L72,87 Q72,72 85,72 L218,72 Z"/>
-    <path fill-rule="evenodd" d="M428,22 Q454,22 454,48 L454,182 Q454,208 428,208 L284,208 Q258,208 258,182 L258,48 Q258,22 284,22 Z M390,72 Q404,72 404,86 L404,144 Q404,158 390,158 L322,158 Q308,158 308,144 L308,86 Q308,72 322,72 Z"/>
-    <path fill-rule="evenodd" d="M664,22 Q690,22 690,48 L690,182 Q690,208 664,208 L520,208 Q494,208 494,182 L494,48 Q494,22 520,22 Z M626,72 Q640,72 640,86 L640,144 Q640,158 626,158 L558,158 Q544,158 544,144 L544,86 Q544,72 558,72 Z"/>
-    <path fill-rule="evenodd" d="M900,22 Q926,22 926,48 L926,182 Q926,208 900,208 L756,208 Q730,208 730,182 L730,48 Q730,22 756,22 Z M780,72 L926,72 L926,90 L780,90 Z M780,140 L926,140 L926,158 L780,158 Z"/>
-    <polygon points="966,22 1082,96 1162,208 1046,134"/>
-    <polygon points="1162,22 1046,96 966,208 1082,134"/>
-  </g>
-</svg>
+          <div class="logo-wrap">
+            <img src="codex-logo.svg" class="codex-logo" alt="Codex" width="350" height="48">
+          </div>
           <div class="eq-bars" aria-hidden="true">
             <span></span><span></span><span></span><span></span><span></span>
           </div>
