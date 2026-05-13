@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Codex - DJ Shows and Links</title>
+  <title>Codex — DJ Shows & Links</title>
   <meta name="description" content="Upcoming shows, mixes, and booking links for DJ Codex.">
   <link rel="stylesheet" href="codex.css">
 </head>
@@ -12,14 +12,29 @@
     <section class="link-card" aria-label="Codex DJ links">
       <div class="hero">
         <div class="wordmark" aria-label="Codex">
-          <strong>Codex</strong>
+          <strong class="glitch" data-text="Codex">Codex</strong>
+          <div class="eq-bars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
           <span>Mando-pop • K-pop • EDM</span>
         </div>
 
         <a class="next-show" href="https://posh.vip/e/-20--3?fbclid=PAVERFWARgrE9leHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacbNrTgdBmpmKcAmiFeUy7bBhiNeV9nZsKDTigqJavkDnmBGAhL6K5xZcD5aA_aem_iGluLHYia8aLpYQ42Zs_PQ" aria-label="Next show: Soju Ba tickets">
-          <small>Next show</small>
+          <div class="next-show-header">
+            <small>Next show</small>
+            <span class="live-pip" aria-hidden="true"></span>
+          </div>
           <b>Soju Ba</b>
-          <span>Thu, May 15 · Boston</span>
+          <span>Fri, May 15 · Boston</span>
+          <div class="countdown" id="countdown">
+            <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-label">days</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-label">hrs</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-label">min</span></div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-label">sec</span></div>
+          </div>
         </a>
       </div>
 
@@ -35,5 +50,38 @@
       </nav>
     </section>
   </main>
+
+  <script>
+    // ── Countdown ──────────────────────────────────────────────
+    const TARGET = new Date('2026-05-15T22:00:00');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = TARGET - Date.now();
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML =
+          '<span class="cd-live">&#9679; TONIGHT</span>';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor(diff % 86400000 / 3600000);
+      const m = Math.floor(diff % 3600000 / 60000);
+      const s = Math.floor(diff % 60000 / 1000);
+      document.getElementById('cd-d').textContent = pad(d);
+      document.getElementById('cd-h').textContent = pad(h);
+      document.getElementById('cd-m').textContent = pad(m);
+      document.getElementById('cd-s').textContent = pad(s);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // ── Entrance stagger ───────────────────────────────────────
+    const els = document.querySelectorAll('.wordmark, .next-show, .link');
+    els.forEach((el, i) => {
+      el.style.setProperty('--delay', i * 90 + 'ms');
+    });
+  </script>
 </body>
 </html>
