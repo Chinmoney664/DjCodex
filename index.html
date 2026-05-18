@@ -21,13 +21,14 @@
           <span>Mando-pop • K-pop • EDM</span>
         </div>
 
-        <a class="next-show" href="https://posh.vip/e/-20--3?fbclid=PAVERFWARgrE9leHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacbNrTgdBmpmKcAmiFeUy7bBhiNeV9nZsKDTigqJavkDnmBGAhL6K5xZcD5aA_aem_iGluLHYia8aLpYQ42Zs_PQ" aria-label="Next show: Soju Ba tickets">
+        <!-- Next show card (shown when upcoming show exists) -->
+        <a class="next-show" id="next-show-card" href="https://posh.vip/e/-20--3" aria-label="Next show tickets" style="display:none">
           <div class="next-show-header">
             <small>Next show</small>
             <span class="live-pip" aria-hidden="true"></span>
           </div>
-          <b>Soju Ba</b>
-          <span>Fri, May 15 · Boston</span>
+          <b id="show-name">—</b>
+          <span id="show-detail">—</span>
           <div class="countdown" id="countdown">
             <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-label">days</span></div>
             <div class="cd-sep">:</div>
@@ -38,37 +39,98 @@
             <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-label">sec</span></div>
           </div>
         </a>
+
+        <!-- Booking CTA (shown when no upcoming show) -->
+        <div class="booking-cta" id="booking-cta" style="display:none">
+          <div class="booking-header">
+            <span class="booking-label">Available to book</span>
+            <span class="avail-pip" aria-hidden="true"></span>
+          </div>
+          <b>Book Codex</b>
+          <p>Mando-pop · K-pop · EDM sets for events, clubs, and private parties.</p>
+          <a class="book-btn" href="mailto:moxyart664@gmail.com?subject=Booking%20Inquiry%20%E2%80%94%20DJ%20Codex">
+            Send a booking request
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
 
-      <nav class="links" aria-label="Primary links">
-        <a class="link" href="https://posh.vip/e/-20--3?fbclid=PAVERFWARgrE9leHRuA2FlbQIxMABzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacbNrTgdBmpmKcAmiFeUy7bBhiNeV9nZsKDTigqJavkDnmBGAhL6K5xZcD5aA_aem_iGluLHYia8aLpYQ42Zs_PQ">
-          <span class="date-badge">May<br>15</span>
-          <span class="link-copy">
-            <b>Soju Ba</b>
-            <small>Boston · 金曲時光機</small>
-          </span>
-          <span class="arrow" aria-hidden="true">›</span>
-        </a>
+      <nav class="links" id="links-nav" aria-label="Primary links">
       </nav>
     </section>
   </main>
 
   <script>
-    const TARGET = new Date('2026-05-15T22:00:00');
-    function pad(n){return String(n).padStart(2,'0')}
-    function tick(){
-      const diff=TARGET-Date.now();
-      if(diff<=0){document.getElementById('countdown').innerHTML='<span class="cd-live">&#9679; TONIGHT</span>';return;}
-      const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),
-            m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
-      document.getElementById('cd-d').textContent=pad(d);
-      document.getElementById('cd-h').textContent=pad(h);
-      document.getElementById('cd-m').textContent=pad(m);
-      document.getElementById('cd-s').textContent=pad(s);
+    // ── Show data ─────────────────────────────────────────────
+    // Add future shows here. Set date as ISO string (local time).
+    const SHOWS = [
+      // { date: '2026-06-01T21:00:00', name: 'Show Name', detail: 'City · Venue', url: 'https://...' }
+    ];
+
+    // ── UI refs ───────────────────────────────────────────────
+    const $nextCard  = document.getElementById('next-show-card');
+    const $bookCTA   = document.getElementById('booking-cta');
+    const $linksNav  = document.getElementById('links-nav');
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    // Find the next upcoming show
+    const now = Date.now();
+    const upcoming = SHOWS
+      .map(s => ({ ...s, ts: new Date(s.date).getTime() }))
+      .filter(s => s.ts > now)
+      .sort((a,b) => a.ts - b.ts);
+
+    if (upcoming.length > 0) {
+      // ── Show the next-show card ──────────────────────────────
+      const next = upcoming[0];
+      $nextCard.href = next.url || '#';
+      document.getElementById('show-name').textContent   = next.name;
+      document.getElementById('show-detail').textContent = next.detail;
+      $nextCard.style.display = '';
+
+      // Countdown
+      function tick() {
+        const diff = next.ts - Date.now();
+        if (diff <= 0) {
+          document.getElementById('countdown').innerHTML = '<span class="cd-live">&#9679; TONIGHT</span>';
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor(diff % 86400000 / 3600000);
+        const m = Math.floor(diff % 3600000  / 60000);
+        const s = Math.floor(diff % 60000    / 1000);
+        document.getElementById('cd-d').textContent = pad(d);
+        document.getElementById('cd-h').textContent = pad(h);
+        document.getElementById('cd-m').textContent = pad(m);
+        document.getElementById('cd-s').textContent = pad(s);
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      // Populate links for all upcoming shows
+      upcoming.forEach(show => {
+        const d   = new Date(show.date);
+        const mon = d.toLocaleString('en-US',{month:'short'}).toUpperCase();
+        const day = d.getDate();
+        const a   = document.createElement('a');
+        a.className = 'link';
+        a.href      = show.url || '#';
+        a.innerHTML = `
+          <span class="date-badge">${mon}<br>${day}</span>
+          <span class="link-copy"><b>${show.name}</b><small>${show.detail}</small></span>
+          <span class="arrow" aria-hidden="true">›</span>`;
+        $linksNav.appendChild(a);
+      });
+
+    } else {
+      // ── No upcoming shows: show booking CTA ─────────────────
+      $bookCTA.style.display = '';
     }
-    tick(); setInterval(tick,1000);
-    document.querySelectorAll('.next-show,.link').forEach((el,i)=>{
-      el.style.setProperty('--delay',i*90+'ms');
+
+    // Stagger entrance animations
+    document.querySelectorAll('.next-show, .booking-cta, .link').forEach((el,i) => {
+      el.style.setProperty('--delay', i * 90 + 'ms');
     });
   </script>
 </body>
