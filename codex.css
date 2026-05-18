@@ -153,33 +153,34 @@ a { color: inherit; text-decoration: none; }
 .eq-bars {
   display: flex;
   align-items: flex-end;
-  gap: 3px;
-  height: 14px;
+  justify-content: center;
+  gap: 4px;
+  height: 28px;
+  margin-top: 4px;
 }
 
 .eq-bars span {
   display: block;
-  width: 3px;
-  border-radius: 1px;
-  background: var(--muted);
+  width: 4px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: bottom;
   animation: eq-bounce var(--d, 0.8s) ease-in-out infinite alternate;
 }
-.eq-bars span:nth-child(1){height:6px; --d:.72s}
-.eq-bars span:nth-child(2){height:12px;--d:.55s}
-.eq-bars span:nth-child(3){height:9px; --d:.83s}
-.eq-bars span:nth-child(4){height:14px;--d:.61s}
-.eq-bars span:nth-child(5){height:7px; --d:.76s}
+
+.eq-bars span:nth-child(1){height:10px;--d:.81s;opacity:.5}
+.eq-bars span:nth-child(2){height:20px;--d:.58s;opacity:.7}
+.eq-bars span:nth-child(3){height:14px;--d:.73s;opacity:.6}
+.eq-bars span:nth-child(4){height:28px;--d:.49s;opacity:1}
+.eq-bars span:nth-child(5){height:18px;--d:.66s;opacity:.8}
+.eq-bars span:nth-child(6){height:26px;--d:.54s;opacity:.95}
+.eq-bars span:nth-child(7){height:12px;--d:.77s;opacity:.6}
+.eq-bars span:nth-child(8){height:22px;--d:.62s;opacity:.75}
+.eq-bars span:nth-child(9){height:8px; --d:.85s;opacity:.45}
 
 @keyframes eq-bounce {
-  from { transform: scaleY(0.25); opacity: 0.4; }
-  to   { transform: scaleY(1);    opacity: 1; }
-}
-
-.wordmark > span {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
+  from { transform: scaleY(0.15); }
+  to   { transform: scaleY(1); }
 }
 
 /* ── Next Show ───────────────────────── */
