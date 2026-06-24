@@ -5,53 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Codex - DJ Shows and Links</title>
   <meta name="description" content="Upcoming shows and event links for DJ Codex.">
-  <link rel="stylesheet" href="codex.css">
+  <link rel="stylesheet" href="mockup.css">
 </head>
 <body>
-  <main class="site-shell">
-    <section class="link-card" aria-label="Codex DJ links">
-      <div class="hero">
-        <div class="wordmark" aria-label="Codex">
-          <strong>Codex</strong>
-          <span>Mando-pop • K-pop • EDM</span>
-        </div>
+  <header class="site-header" aria-label="Site navigation">
+    <a class="nav-logo" href="#home" aria-label="Codex home">Codex</a>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a href="#events">Events</a>
+      <a href="#music">Music</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-        <a class="next-show" href="#" aria-label="Next event: Alyssa wedding in New Jersey">
-          <small>Next event</small>
-          <b>Alyssa Wedding</b>
-          <span>Sat, Jun 20 · New Jersey</span>
-        </a>
+  <main id="home">
+    <section class="hero" aria-label="Codex artist intro">
+      <div class="hero-image" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <h1 class="sr-only">Codex</h1>
+        <div class="glitch-logo" aria-hidden="true">
+          <img class="hero-logo" src="codex-logo.png" alt="">
+        </div>
+        <p class="genre-line">Mando-pop • K-pop • EDM</p>
       </div>
 
-      <nav class="links" aria-label="Primary links">
-        <a class="link" href="#">
-          <span class="date-badge">Jun<br>20</span>
-          <span class="link-copy">
-            <b>Alyssa Wedding</b>
-            <small>New Jersey</small>
-          </span>
-          <span class="arrow" aria-hidden="true">›</span>
-        </a>
+      <a class="next-card" href="#" aria-label="Next event" data-next-event></a>
+    </section>
 
-        <a class="link" href="#">
-          <span class="date-badge">Jun<br>27</span>
-          <span class="link-copy">
-            <b>金曲颁奖典礼</b>
-            <small>Hue House 929</small>
-          </span>
-          <span class="arrow" aria-hidden="true">›</span>
-        </a>
+    <section class="section-block events-block" id="events" aria-labelledby="events-title">
+      <div class="section-heading">
+        <p class="eyebrow">Upcoming</p>
+        <h2 id="events-title">Events</h2>
+      </div>
 
-        <a class="link" href="#">
-          <span class="date-badge">Aug<br>07</span>
-          <span class="link-copy">
-            <b>TAP Boat Party</b>
-            <small>New York</small>
-          </span>
-          <span class="arrow" aria-hidden="true">›</span>
-        </a>
-      </nav>
+      <div class="event-list" data-upcoming-events></div>
+      <p class="empty-state" data-empty-upcoming hidden>New dates coming soon.</p>
+    </section>
+
+    <section class="section-block admin-archive" aria-labelledby="past-events-title" data-admin-archive hidden>
+      <div class="section-heading">
+        <p class="eyebrow">Private archive</p>
+        <h2 id="past-events-title">Past Events</h2>
+        <p class="admin-note">Only shows when you open this page with <code>?admin=1</code>.</p>
+      </div>
+
+      <div>
+        <p class="archive-count" data-past-count>0 saved</p>
+        <div class="event-list" data-past-events></div>
+      </div>
+    </section>
+
+    <section class="section-block split-block" id="music" aria-labelledby="music-title">
+      <div class="section-heading">
+        <p class="eyebrow">Sound</p>
+        <h2 id="music-title">Music</h2>
+      </div>
+      <div class="feature-panel">
+        <p>Club edits, Mando-pop hooks, K-pop moments, and EDM drops shaped for late-night rooms.</p>
+        <a href="#">Listen soon</a>
+      </div>
+    </section>
+
+    <section class="section-block contact-block" id="contact" aria-labelledby="contact-title">
+      <div class="section-heading">
+        <p class="eyebrow">Bookings</p>
+        <h2 id="contact-title">Contact</h2>
+      </div>
+      <div class="contact-panel">
+        <p>For clubs, private events, weddings, and cultural nights.</p>
+        <a href="mailto:booking@djcodexnyc.com">booking@djcodexnyc.com</a>
+      </div>
     </section>
   </main>
+  <script src="events.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>
