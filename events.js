@@ -1,5 +1,13 @@
 const codexEvents = [
   {
+    title: "Taiwan Golden Melody Night — Washington DC",
+    date: "2026-08-21",
+    displayDate: "Fri, Aug 21 · 9 PM",
+    location: "Eighteenth Street Lounge",
+    url: "https://events.humanitix.com/taiwan-golden-melody-night-washington-dc",
+    imageAlt: "Tickets for Taiwan Golden Melody Night in Washington DC"
+  },
+  {
     title: "Alyssa Wedding",
     date: "2026-06-20",
     displayDate: "Sat, Jun 20",

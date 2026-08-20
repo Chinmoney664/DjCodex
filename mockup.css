@@ -425,6 +425,22 @@ h1 {
   transition: transform 180ms ease, opacity 180ms ease;
 }
 
+.event-ticket-art {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(244, 239, 230, 0.1);
+  background:
+    linear-gradient(135deg, rgba(244, 239, 230, 0.12), transparent 58%),
+    #111;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .event-row:hover .event-media img {
   opacity: 1;
   transform: scale(1.04);
@@ -557,8 +573,25 @@ h1 {
 
 @media (max-width: 640px) {
   .hero {
-    gap: 22px;
-    padding-bottom: 28px;
+    min-height: 0;
+    gap: 12px;
+    padding-top: 82px;
+    padding-bottom: 26px;
+  }
+
+  .hero-content {
+    min-height: 34svh;
+    align-content: center;
+  }
+
+  .glitch-logo {
+    justify-self: center;
+  }
+
+  .genre-line {
+    margin-top: 12px;
+    text-align: center;
+    transform: translateY(-14px);
   }
 
   .next-card {

@@ -31,10 +31,30 @@ function eventMeta(event) {
   return [event.displayDate, event.location].filter(Boolean).join(" · ");
 }
 
+function isExternalLink(url) {
+  return /^https?:\/\//i.test(url || "");
+}
+
+function setEventLinkAttributes(link, event) {
+  if (isExternalLink(event.url)) {
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+  }
+}
+
+function eventMedia(event) {
+  if (event.image) {
+    return `<img src="${event.image}" alt="${event.imageAlt || ""}">`;
+  }
+
+  return `<span class="event-ticket-art" aria-hidden="true">Tickets</span>`;
+}
+
 function eventRow(event, options = {}) {
   const link = document.createElement("a");
   link.className = "event-row";
   link.href = event.url || "#";
+  setEventLinkAttributes(link, event);
   if (options.past) {
     link.classList.add("is-past");
   }
@@ -45,9 +65,7 @@ function eventRow(event, options = {}) {
       <b>${event.title || ""}</b>
       <small>${eventMeta(event)}</small>
     </span>
-    <span class="event-media">
-      ${event.image ? `<img src="${event.image}" alt="${event.imageAlt || ""}">` : ""}
-    </span>
+    <span class="event-media">${eventMedia(event)}</span>
   `;
 
   return link;
@@ -70,13 +88,14 @@ function renderNextEvent() {
   }
 
   nextCard.href = nextEvent.url || "#";
+  setEventLinkAttributes(nextCard, nextEvent);
   nextCard.setAttribute("aria-label", `Next event: ${nextEvent.title}`);
   nextCard.innerHTML = `
     ${nextEvent.image ? `<img src="${nextEvent.image}" alt="${nextEvent.imageAlt || ""}">` : ""}
     <span>Next event</span>
     <h2>${nextEvent.title || ""}</h2>
     <p>${eventMeta(nextEvent)}</p>
-    <span class="card-link">View all dates</span>
+    <span class="card-link">Get tickets</span>
   `;
 }
 
