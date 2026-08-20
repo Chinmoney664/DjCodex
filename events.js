@@ -9,6 +9,15 @@ const codexEvents = [
     imageAlt: "Taiwan Golden Melody Night flyer for Washington DC"
   },
   {
+    title: "🪩寶島夜總會 頂樓夕陽派對🪩",
+    date: "2026-08-23",
+    displayDate: "Sun, Aug 23 · 3 PM",
+    location: "The Crown · New York City",
+    url: "https://posh.vip/e/--336",
+    image: "https://posh.vip/cdn-cgi/image/width=640,quality=75,fit=scale-down,format=auto/https://images.posh.vip/originals/6a5a952746c744e5acf842ab",
+    imageAlt: "Formosa Extravaganza rooftop sunset party flyer"
+  },
+  {
     title: "Alyssa Wedding",
     date: "2026-06-20",
     displayDate: "Sat, Jun 20",
