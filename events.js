@@ -18,6 +18,15 @@ const codexEvents = [
     imageAlt: "Formosa Extravaganza rooftop sunset party flyer"
   },
   {
+    title: "金曲時光機 二週年！Feat. 神秘嘉賓✨",
+    date: "2026-10-24",
+    displayDate: "Sat, Oct 24 · 9 PM",
+    location: "Long Island City, NY",
+    url: "https://posh.vip/e/-feat-",
+    image: "assets/events/golden-melody-2nd-anniversary.png",
+    imageAlt: "金曲時光機 二週年 event artwork"
+  },
+  {
     title: "Alyssa Wedding",
     date: "2026-06-20",
     displayDate: "Sat, Jun 20",
