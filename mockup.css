@@ -50,9 +50,15 @@ a {
 }
 
 .nav-logo {
-  font-size: 20px;
-  font-weight: 850;
-  text-transform: uppercase;
+  width: clamp(72px, 7vw, 104px);
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .main-nav {
@@ -179,14 +185,6 @@ h1 {
   display: block;
   object-fit: contain;
   animation: logo-pulse 7s ease-in-out infinite;
-}
-
-.genre-line {
-  margin-top: 18px;
-  color: var(--accent);
-  font-size: clamp(16px, 2vw, 26px);
-  font-weight: 800;
-  text-transform: uppercase;
 }
 
 @keyframes logo-pulse {
@@ -588,12 +586,6 @@ h1 {
     justify-self: center;
   }
 
-  .genre-line {
-    margin-top: 12px;
-    text-align: center;
-    transform: translateY(-14px);
-  }
-
   .next-card {
     padding: 18px;
   }
@@ -627,10 +619,6 @@ h1 {
     position: absolute;
   }
 
-  .nav-logo {
-    font-size: 18px;
-  }
-
   .main-nav a:nth-child(2) {
     display: none;
   }
@@ -641,10 +629,6 @@ h1 {
 
   .glitch-logo {
     width: min(100%, 420px);
-  }
-
-  .genre-line {
-    font-size: 14px;
   }
 
   .event-copy b {
