@@ -405,6 +405,29 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.event-promo {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.event-promo strong {
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.next-card .event-promo {
+  margin-top: 0;
+}
+
 .event-media {
   height: clamp(96px, 7vw, 126px);
   overflow: hidden;

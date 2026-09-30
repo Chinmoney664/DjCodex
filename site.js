@@ -31,6 +31,11 @@ function eventMeta(event) {
   return [event.displayDate, event.location].filter(Boolean).join(" · ");
 }
 
+function eventPromo(event) {
+  if (!event.promoCode) return "";
+  return `<span class="event-promo">Promo code <strong>${event.promoCode}</strong></span>`;
+}
+
 function isExternalLink(url) {
   return /^https?:\/\//i.test(url || "");
 }
@@ -64,6 +69,7 @@ function eventRow(event, options = {}) {
     <span class="event-copy">
       <b>${event.title || ""}</b>
       <small>${eventMeta(event)}</small>
+      ${eventPromo(event)}
     </span>
     <span class="event-media">${eventMedia(event)}</span>
   `;
@@ -95,6 +101,7 @@ function renderNextEvent() {
     <span>Next event</span>
     <h2>${nextEvent.title || ""}</h2>
     <p>${eventMeta(nextEvent)}</p>
+    ${eventPromo(nextEvent)}
     <span class="card-link">Get tickets</span>
   `;
 }

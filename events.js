@@ -23,6 +23,7 @@ const codexEvents = [
     displayDate: "Sat, Oct 24 · 9 PM",
     location: "Long Island City, NY",
     url: "https://posh.vip/e/-feat-",
+    promoCode: "codex",
     image: "assets/events/golden-melody-2nd-anniversary.png",
     imageAlt: "金曲時光機 二週年 event artwork"
   },
