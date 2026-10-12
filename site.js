@@ -18,6 +18,21 @@ const pastEvents = sortedEvents.filter((event) => {
 }).reverse();
 
 const isAdminView = new URLSearchParams(window.location.search).get("admin") === "1";
+const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+const icons = {
+  instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>',
+  tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/>',
+  youtube: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor"/>',
+  music: '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',
+  calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  mail: '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
+};
+
+function iconSvg(name) {
+  return `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.link}</svg>`;
+}
 
 function monthDay(dateString) {
   if (!dateString) return "";
@@ -31,115 +46,122 @@ function eventMeta(event) {
   return [event.displayDate, event.location].filter(Boolean).join(" · ");
 }
 
-function eventPromo(event) {
-  if (!event.promoCode) return "";
-  return `<span class="event-promo">Promo code <strong>${event.promoCode}</strong></span>`;
+function hasTickets(event) {
+  return /^https?:\/\//i.test(event.url || "");
 }
 
-function isExternalLink(url) {
-  return /^https?:\/\//i.test(url || "");
+function openInNewTab(link) {
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
 }
 
-function setEventLinkAttributes(link, event) {
-  if (isExternalLink(event.url)) {
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-  }
-}
+function showRow(event, options = {}) {
+  const tickets = hasTickets(event) && !options.past;
+  const row = document.createElement("div");
+  row.className = "show-row";
+  if (options.past) row.classList.add("is-past");
 
-function eventMedia(event) {
-  if (event.image) {
-    return `<img src="${event.image}" alt="${event.imageAlt || ""}">`;
-  }
+  const thumb = event.image
+    ? `<img class="show-thumb" src="${event.image}" alt="${event.imageAlt || ""}">`
+    : `<span class="show-thumb show-date">${monthDay(event.date)}</span>`;
+  const title = tickets
+    ? `<a class="show-link" href="${event.url}" target="_blank" rel="noopener noreferrer">${event.title || ""}</a>`
+    : `<span>${event.title || ""}</span>`;
+  const promo = event.promoCode && !options.past
+    ? `<button type="button" class="promo-chip" data-copy="${event.promoCode}" aria-label="Copy promo code ${event.promoCode}"><span class="promo-label" data-copy-label>Code</span> <strong>${event.promoCode}</strong></button>`
+    : "";
 
-  return `<span class="event-ticket-art" aria-hidden="true">Tickets</span>`;
-}
-
-function eventRow(event, options = {}) {
-  const link = document.createElement("a");
-  link.className = "event-row";
-  link.href = event.url || "#";
-  setEventLinkAttributes(link, event);
-  if (options.past) {
-    link.classList.add("is-past");
-  }
-
-  link.innerHTML = `
-    <span class="event-date">${monthDay(event.date)}</span>
-    <span class="event-copy">
-      <b>${event.title || ""}</b>
+  row.innerHTML = `
+    ${thumb}
+    <span class="show-copy">
+      <b>${title}</b>
       <small>${eventMeta(event)}</small>
-      ${eventPromo(event)}
     </span>
-    <span class="event-media">${eventMedia(event)}</span>
+    <span class="show-side">
+      <span class="show-action">${tickets ? "Tickets" : options.past ? "" : "Private"}</span>
+      ${promo}
+    </span>
   `;
 
-  return link;
-}
-
-function renderNextEvent() {
-  const nextCard = document.querySelector("[data-next-event]");
-  if (!nextCard) return;
-
-  const nextEvent = upcomingEvents[0];
-
-  if (!nextEvent) {
-    nextCard.innerHTML = `
-      <span>Next event</span>
-      <h2>New dates soon</h2>
-      <p>Check back for upcoming Codex events.</p>
-      <span class="card-link">View archive</span>
-    `;
-    return;
-  }
-
-  nextCard.href = nextEvent.url || "#";
-  setEventLinkAttributes(nextCard, nextEvent);
-  nextCard.setAttribute("aria-label", `Next event: ${nextEvent.title}`);
-  nextCard.innerHTML = `
-    ${nextEvent.image ? `<img src="${nextEvent.image}" alt="${nextEvent.imageAlt || ""}">` : ""}
-    <span>Next event</span>
-    <h2>${nextEvent.title || ""}</h2>
-    <p>${eventMeta(nextEvent)}</p>
-    ${eventPromo(nextEvent)}
-    <span class="card-link">Get tickets</span>
-  `;
+  return row;
 }
 
 function renderUpcomingEvents() {
-  const eventList = document.querySelector("[data-upcoming-events]");
+  const list = document.querySelector("[data-upcoming-events]");
   const emptyState = document.querySelector("[data-empty-upcoming]");
-  if (!eventList) return;
+  if (!list) return;
 
-  eventList.innerHTML = "";
-  upcomingEvents.forEach((event) => {
-    eventList.appendChild(eventRow(event));
+  list.innerHTML = "";
+  upcomingEvents.forEach((event) => list.appendChild(showRow(event)));
+  if (emptyState) emptyState.hidden = upcomingEvents.length > 0;
+}
+
+function visibleLinks() {
+  return codexLinks.filter((link) => link.url || isLocalPreview);
+}
+
+const iconOnly = ["instagram", "tiktok", "youtube", "mail"];
+
+function renderLinks() {
+  const list = document.querySelector("[data-links]");
+  const iconRow = document.querySelector("[data-social-links]");
+
+  visibleLinks().forEach((item) => {
+    if (iconRow && iconOnly.includes(item.icon)) {
+      const icon = document.createElement("a");
+      icon.className = "social-icon";
+      if (!item.url) icon.classList.add("is-placeholder");
+      icon.href = item.url || "#";
+      icon.setAttribute("aria-label", item.label);
+      if (/^https?:\/\//i.test(item.url)) openInNewTab(icon);
+      icon.innerHTML = iconSvg(item.icon);
+      iconRow.appendChild(icon);
+      return;
+    }
+
+    const button = document.createElement("a");
+    button.className = "link-button";
+    button.href = item.url || "#";
+    if (!item.url) button.classList.add("is-placeholder");
+    if (/^https?:\/\//i.test(item.url)) openInNewTab(button);
+    button.innerHTML = `
+      ${iconSvg(item.icon)}
+      <span>${item.label}</span>
+      ${item.url ? "" : '<em>link needed</em>'}
+    `;
+    list?.appendChild(button);
+
   });
-
-  if (emptyState) {
-    emptyState.hidden = upcomingEvents.length > 0;
-  }
 }
 
 function renderPastEvents() {
-  const adminSection = document.querySelector("[data-admin-archive]");
-  const pastList = document.querySelector("[data-past-events]");
-  const pastCount = document.querySelector("[data-past-count]");
+  const section = document.querySelector("[data-admin-archive]");
+  const list = document.querySelector("[data-past-events]");
+  const count = document.querySelector("[data-past-count]");
+  if (!section || !list) return;
 
-  if (!adminSection || !pastList) return;
-
-  adminSection.hidden = !isAdminView;
-  pastList.innerHTML = "";
-
-  pastEvents.forEach((event) => {
-    pastList.appendChild(eventRow(event, { past: true }));
-  });
-
-  if (pastCount) {
-    pastCount.textContent = `${pastEvents.length} saved`;
-  }
+  section.hidden = !isAdminView;
+  list.innerHTML = "";
+  pastEvents.forEach((event) => list.appendChild(showRow(event, { past: true })));
+  if (count) count.textContent = `(${pastEvents.length})`;
 }
 
-renderNextEvent();
+document.addEventListener("click", async (clickEvent) => {
+  const button = clickEvent.target.closest("[data-copy]");
+  if (!button) return;
+
+  const label = button.querySelector("[data-copy-label]");
+  try {
+    await navigator.clipboard.writeText(button.dataset.copy);
+    if (label) label.textContent = "Copied";
+  } catch {
+    if (label) label.textContent = "";
+  }
+  setTimeout(() => {
+    if (label) label.textContent = "Code";
+  }, 1800);
+});
+
 renderUpcomingEvents();
+renderLinks();
 renderPastEvents();

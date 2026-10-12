@@ -18,7 +18,11 @@ Nocturnal, polished, energetic. The experience should feel like a restrained clu
 
 ## Anti-references
 
-Avoid bright rainbow palettes, crowded Linktree-style stacks, marketing-heavy landing pages, and decorative effects that compete with event information.
+Avoid bright rainbow palettes, generic or crowded Linktree look-alikes, marketing-heavy landing pages, and decorative effects that compete with event information.
+
+## Layout
+
+Mobile is a link-in-bio page: centered logo, upcoming shows as compact bars (thumbnail, title, date, Tickets button with promo code under it), link buttons, then social/email icons. Desktop will get a separate design later.
 
 ## Design Principles
 
