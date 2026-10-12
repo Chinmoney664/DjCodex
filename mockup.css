@@ -389,7 +389,8 @@ p {
   gap: var(--space-5);
 }
 
-.link-list:empty {
+.link-list:empty,
+.links-group:not(:has(a)) {
   display: none;
 }
 
